@@ -3,7 +3,7 @@ import cv2
   
 # define a video capture object
 vid = cv2.VideoCapture("udpsrc port=5000 ! gdpdepay ! rtph264depay ! avdec_h264 ! videoconvert ! appsink sync=false")
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
+fourcc = cv2.VideoWriter_fourcc(*'H264')
 out = cv2.VideoWriter('output.avi', fourcc, 20.0, (1280, 720))
 while(True):
       
