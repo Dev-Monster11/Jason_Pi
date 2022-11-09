@@ -2,7 +2,7 @@ import cv2
   
   
 # define a video capture object
-vid = cv2.VideoCapture("udpsrc port=5000 ! gdpdepay ! rtph264depay ! avdec_h264 ! videoconvert ! appsink sync=false")
+vid = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc(*'H264')
 out = cv2.VideoWriter('output.avi', fourcc, 20.0, (1280, 720))
 while(True):
@@ -13,6 +13,7 @@ while(True):
   
     # Display the resulting frame
     if not ret:
+        print("can't read frame")
         break
     out.write(frame)
     cv2.imshow("frame", frame)
