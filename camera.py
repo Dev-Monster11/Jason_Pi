@@ -9,6 +9,5 @@ while True:
 		
 		break
 	cv2.imshow("frame", frame)
-	cv2.waitKey(0)
-
+	time.sleep(0.04)
 cap.release()
