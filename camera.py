@@ -3,7 +3,7 @@ import cv2
   
 # define a video capture object
 vid = cv2.VideoCapture(0)
-fourcc = cv2.VideoWriter_fourcc(*'H264')
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('output.avi', fourcc, 20.0, (1280, 720))
 while(True):
       
