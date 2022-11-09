@@ -15,7 +15,7 @@ while(True):
     if not ret:
         break
     out.write(frame)
-      
+    cv2.imshow("frame", frame)
     # the 'q' button is set as the
     # quitting button you may use any
     # desired button of your choice
