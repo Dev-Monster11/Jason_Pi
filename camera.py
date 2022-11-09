@@ -2,7 +2,7 @@ import cv2
   
   
 # define a video capture object
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture("udpsrc port=5000 ! gdpdepay ! rtph264depay ! avdec_h264 ! videoconvert ! appsink sync=false")
   
 while(True):
       

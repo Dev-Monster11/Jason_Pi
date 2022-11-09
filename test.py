@@ -36,7 +36,6 @@ class MyThread(Thread):
         self.join()
 
 def frameStream(cap, config, start):
-    
     seconds = [0]
     temp = 0
     for content in config['contents']:
@@ -45,9 +44,7 @@ def frameStream(cap, config, start):
     tempStart = start
     camera = MyThread(0)
     camera.start()
-    print(seconds)
     while(True):
-        # cv2.imshow('asdf', camera.frame)
         now = time.time()
         
         # print('delta is ', delta)
@@ -125,11 +122,9 @@ def main():
     cv2.namedWindow('frame', cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty('frame', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     start = time.time()
-    frame_thread = Thread(target=frameStream, args=('rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mp4',config, start))
+    frame_thread = Thread(target=frameStream, args=(0, config, start))
     frame_thread.start()
     while(True):
-        # frame_thread.join()
-
         try: 
             # cv2.imshow('frame', buildFrame(config['layout'], ))
             if cv2.waitKey(1) == ord('q'):
