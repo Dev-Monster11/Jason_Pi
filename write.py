@@ -31,9 +31,9 @@ class MyThread(Thread):
             print("Camera is not opened")
             exit(0)
     def startThread():
-    	self.flag = True
+        self.flag = True
     def killThread():
-    	self.flag = False
+        self.flag = False
         if self.cap.isOpened():
             self.cap.release()
         self.join()
@@ -152,4 +152,4 @@ def main():
             break
 
 if __name__ == '__main__':
-	main()
+    main()
