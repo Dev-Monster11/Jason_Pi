@@ -114,7 +114,7 @@ def main():
     cv2.setWindowProperty('frame', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     start = time.time()
     frame_thread = Thread(target=frameStream, args=(0, config, start))
-    # frame_thread.start()
+    frame_thread.start()
     while(True):
         try: 
             # cv2.imshow('frame', buildFrame(config['layout'], ))
