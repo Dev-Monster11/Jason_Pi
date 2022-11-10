@@ -15,7 +15,7 @@ width = 640
 height = 480
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output.mp4', fourcc, 25.0, (width, height))
+out = cv2.VideoWriter('output.avi', fourcc, 25.0, (width, height))
 def loadConfig():
     with open('config.json', 'r') as config_file:
         configData = json.load(config_file)
