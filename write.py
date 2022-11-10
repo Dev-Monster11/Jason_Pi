@@ -94,6 +94,9 @@ def main():
         adSize = (width, int(height/10))
     contentShow = False
     index = -1
+    a = 1.0
+    b = 0.0
+    animationFlag = 0
     while(True):
 
         now = time.time()
@@ -101,8 +104,11 @@ def main():
         d = int(now - start) 
         # print(int((now - start) / 1000))
         if d != 0 and d % config['period'] == 0:
-            tempStart = now
+            tempStart = time.time()
             contentShow = True
+            animationFlag = 1
+            index = random.randint(0, len(config['contents']) - 1)
+
         # index = 0
         # contentFrame = np.zeros((width, height, 3), dtype = "uint8")
         # for x in seconds:
@@ -125,23 +131,43 @@ def main():
 
         _, frame = cap.read()
         frame = cv2.resize(frame, (width, height))
-        if contentShow == True:
-            if index == -1:
-                index = random.randint(0, len(config['contents']) - 1)
+        if index != -1:
+            # if index == -1:
+            #     index = random.randint(0, len(config['contents']) - 1)
+            #     tempStart = time.time()
             data = config['contents'][index]
             adDuration = time.time() - tempStart
             if (adDuration > data['AdDuration']):
-                contentShow = False
-                start = time.time()
-                index = -1
-                continue
+                # contentShow = False
+                animationFlag = -1
+                # start = time.time()
+                # index = -1
+                # continue
             if (data['AdType'] == 'IMAGE'):
                 url_response = urllib.request.urlopen(data['AdPath'])
                 contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
                 contentFrame = cv2.resize(contentFrame, adSize)
+
                 if (config['layout'] == 'left_50'):
+                    source = frame[0:height, 0:int(width/2)]
+                    contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
+                    if (animationFlag == 1 and ceil(a) == 0):
+                        b = 1
+                        animationFlag = 0
+                    elif (animationFlag == -1 and ceil(b) == 0):
+                        a = 1
+                        animationFlag = 0
+
+                    if animationFlag == 1:
+                        a -= 0.01
+                        b += 0.01
+                    elif animationFlag == -1:
+                        a += 0.01
+                        b -= 0.01
                     frame[0:height, 0:int(width/2)] = contentFrame
+
                 elif (config['layout'] == 'right_50'):
+
                     frame[0:height, int(width/2):width] = contentFrame
                 elif (config['layout'] == 'top_10'):
                     frame[0:int(height/10), 0:width] = contentFrame
