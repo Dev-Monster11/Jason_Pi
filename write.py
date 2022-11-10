@@ -124,14 +124,14 @@ def main():
 
         _, frame = cap.read()
         frame = cv2.resize(frame, (width, height))
-        if contentShow:
+        if contentShow == True:
             index = random.randint(0, len(config['contents']) - 1)
             data = config['contents'][index]
             adDuration = time.time() - tempStart
             if (adDuration > data['AdDuration']):
                 contentShow = False
                 start = time.time()
-                tempStart = start
+                continue
             if (data['AdType'] == 'IMAGE'):
                 url_response = urllib.request.urlopen(data['AdPath'])
                 contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
