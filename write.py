@@ -101,15 +101,14 @@ def main():
     while(True):
 
         now = time.time()
-        print(now - start)        
+        print(now - start)
         d = int(now - start) 
-        # print(int((now - start) / 1000))
         if d != 0 and d % config['period'] == 0:
             tempStart = time.time()
             contentShow = True
             animationFlag = 1
             index = random.randint(0, len(config['contents']) - 1)
-
+        
         # index = 0
         # contentFrame = np.zeros((width, height, 3), dtype = "uint8")
         # for x in seconds:
@@ -136,11 +135,14 @@ def main():
             # if index == -1:
             #     index = random.randint(0, len(config['contents']) - 1)
             #     tempStart = time.time()
+            print("New Ads")
             data = config['contents'][index]
-            adDuration = time.time() - tempStart
-            if (adDuration > data['AdDuration']):
+            if (animationFlag == 0):
+                adDuration = time.time() - tempStart
+                print("Ad Duration", adDuration)
+                if (adDuration > data['AdDuration']):
                 # contentShow = False
-                animationFlag = -1
+                    animationFlag = -1
                 # start = time.time()
                 # index = -1
                 # continue
@@ -151,24 +153,29 @@ def main():
 
                 if (config['layout'] == 'left_50'):
                     if (animationFlag != 0):
-                        source = frame[0:height, 0:int(width/2)]
-                        contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
-                        if (animationFlag == 1 and ceil(a) == 0):
-                            b = 1
-                            animationFlag = 0
 
-
-                        elif (animationFlag == -1 and ceil(b) == 0):
-                            a = 1
-                            animationFlag = 0
-
+                        print("Animation Flag", animationFlag)
                         if animationFlag == 1:
                             a -= 0.1
                             b += 0.1
                         elif animationFlag == -1:
                             a += 0.1
-                            b -= 0.1
-                    
+                            b -= 0.1                        
+                        source = frame[0:height, 0:int(width/2)]
+
+                        contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
+                        # cv2.imshow('content', contentFrame)
+                        if (animationFlag == 1 and ceil(a) == 0):
+                            print("Fade In")
+                            b = 1
+                            animationFlag = 0
+                        elif (animationFlag == -1 and ceil(b) == 0):
+                            print("Fade Out")
+                            a = 1
+                            animationFlag = 0
+
+
+
                     frame[0:height, 0:int(width/2)] = contentFrame
 
                 elif (config['layout'] == 'right_50'):
