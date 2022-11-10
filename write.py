@@ -32,7 +32,7 @@ class MyThread(Thread):
             exit(0)
     def startThread():
     	self.flag = True
-    def killThread()
+    def killThread():
     	self.flag = False
         if self.cap.isOpened():
             self.cap.release()
