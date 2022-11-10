@@ -93,6 +93,7 @@ def main():
     else:
         adSize = (width, int(height/10))
     contentShow = False
+    index = -1
     while(True):
 
         now = time.time()
@@ -125,25 +126,27 @@ def main():
         _, frame = cap.read()
         frame = cv2.resize(frame, (width, height))
         if contentShow == True:
-            index = random.randint(0, len(config['contents']) - 1)
-            data = config['contents'][index]
-            adDuration = time.time() - tempStart
-            if (adDuration > data['AdDuration']):
-                contentShow = False
-                start = time.time()
-                continue
-            if (data['AdType'] == 'IMAGE'):
-                url_response = urllib.request.urlopen(data['AdPath'])
-                contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
-                contentFrame = cv2.resize(contentFrame, adSize)
-                if (config['layout'] == 'left_50'):
-                    frame[0:height, 0:int(width/2)] = contentFrame
-                elif (config['layout'] == 'right_50'):
-                    frame[0:height, int(width/2):width] = contentFrame
-                elif (config['layout'] == 'top_10'):
-                    frame[0:int(height/10), 0:width] = contentFrame
-                elif (config['layout'] == 'bottom_10'):
-                    frame[int(height/10):height, 0:width] = contentFrame
+            if index == -1:
+                index = random.randint(0, len(config['contents']) - 1)
+                data = config['contents'][index]
+                adDuration = time.time() - tempStart
+                if (adDuration > data['AdDuration']):
+                    contentShow = False
+                    start = time.time()
+                    index = -1
+                    continue
+                if (data['AdType'] == 'IMAGE'):
+                    url_response = urllib.request.urlopen(data['AdPath'])
+                    contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
+                    contentFrame = cv2.resize(contentFrame, adSize)
+                    if (config['layout'] == 'left_50'):
+                        frame[0:height, 0:int(width/2)] = contentFrame
+                    elif (config['layout'] == 'right_50'):
+                        frame[0:height, int(width/2):width] = contentFrame
+                    elif (config['layout'] == 'top_10'):
+                        frame[0:int(height/10), 0:width] = contentFrame
+                    elif (config['layout'] == 'bottom_10'):
+                        frame[int(height/10):height, 0:width] = contentFrame
         out.write(frame)
         cv2.imshow('frame', frame)
         try:
