@@ -154,7 +154,7 @@ def main():
                 if (config['layout'] == 'left_50'):
                     if (animationFlag != 0):
 
-                        print("Animation Flag", animationFlag)
+                        # print("Animation Flag", animationFlag)
                         if animationFlag == 1:
                             a -= 0.1
                             b += 0.1
@@ -166,11 +166,11 @@ def main():
                         contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
                         # cv2.imshow('content', contentFrame)
                         if (animationFlag == 1 and ceil(a) == 0):
-                            print("Fade In")
+                            # print("Fade In")
                             b = 1
                             animationFlag = 0
                         elif (animationFlag == -1 and ceil(b) == 0):
-                            print("Fade Out")
+                            # print("Fade Out")
                             a = 1
                             animationFlag = 0
                         tempStart = time.time()
