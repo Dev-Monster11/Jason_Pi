@@ -96,7 +96,7 @@ def main():
 
         now = time.time()
         print(now - start)        
-        d = int((now - start) / 1000) 
+        d = int(now - start) 
         # print(int((now - start) / 1000))
         if d != 0 and d % config['period'] == 0:
             tempStart = now
