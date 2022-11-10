@@ -14,7 +14,8 @@ width = 1024
 height = 768
 cameraFrame = np.zeros((width, height, 3), dtype = "uint8")
 contentFrame = np.zeros((width, height, 3), dtype = "uint8")
-
+camera = MyThread(0)
+camera.start()   
 class MyThread(Thread):
     def __init__(self, url):
         Thread.__init__(self)
@@ -44,8 +45,7 @@ def frameStream(cap, config, start):
         temp = temp + content['AdDuration']
         seconds.append(temp)
     tempStart = start
-    camera = MyThread(0)
-    camera.start()
+
     while(True):
         now = time.time()
         
