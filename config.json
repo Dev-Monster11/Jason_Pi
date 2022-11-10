@@ -7,14 +7,14 @@
 	"layout": "left_50",
 	"contents": [
 		{
-			"AdName": "Case3",
+			"AdName": "Case1",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/miss-piggy-large.jpg",
 			"AdDuration": 2,
 			"AdQRPath": "https://test3.com"
 		},
 		{
-			"AdName": "Case3",
+			"AdName": "Case2",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/winnie-the-pooh-large.jpg",
 			"AdDuration": 3,
@@ -28,14 +28,14 @@
 			"AdQRPath": "https://test3.com"
 		},
 		{
-			"AdName": "Case3",
+			"AdName": "Case4",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/pink-ranger-large.jpg",
 			"AdDuration": 5,
 			"AdQRPath": "https://test3.com"
 		},
 		{
-			"AdName": "Case3",
+			"AdName": "Case5",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/elmer-fudd-large.jpg",
 			"AdDuration": 6,

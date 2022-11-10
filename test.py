@@ -8,7 +8,6 @@ from screeninfo import get_monitors
 import urllib.request
 
 screen = get_monitors()[0]
-print(screen)
 cameraFrame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
 contentFrame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
 
@@ -17,12 +16,11 @@ class MyThread(Thread):
         Thread.__init__(self)
         self.url = url
         self.frame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
-
-    def run(self):
-        cap = cv2.VideoCapture(self.url)
+        self.cap = cv2.VideoCapture(self.url)
         if not cap.isOpened():
             print("Camera is not opened")
-            return   
+            exit(0)
+    def run(self):
         while(True):
             ret, self.frame = cap.read()
             if not ret:
@@ -47,9 +45,6 @@ def frameStream(cap, config, start):
     while(True):
         now = time.time()
         
-        # print('delta is ', delta)
-        # if (delta > seconds[len(seconds) - 1]):
-        #     tempStart = now
         delta = (now - tempStart) % seconds[len(seconds) - 1]
         index = 0
         contentFrame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
@@ -59,7 +54,6 @@ def frameStream(cap, config, start):
             index = index + 1
 
         data = config['contents'][index - 1]
-        print('Content Data is ', data)
         if (data['AdType'] == 'VIDEO'):
             content = camThread(data['AdPath'])
             content.start()
@@ -70,14 +64,10 @@ def frameStream(cap, config, start):
         elif (data['AdType'] == 'SCROLL'):
             cv2.putText(contentFrame, data['AdPath'], (screen.width / 2, screen.height / 2), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255))
         try:
-            # cv2.imshow('abc', camera.frame)
-            # cv2.imshow('bcd', contentFrame)
-
+            print("all is ready")
             buildFrame(config['layout'], camera.frame, contentFrame)
-
+            print("build is done")
             time.sleep(1)
-            # if cv2.waitKey(1) == ord('q'):
-            #     break
         except KeyboardInterrupt:
             print('Keyboard Interrupt')
 
@@ -106,6 +96,7 @@ def buildFrame(val, cameraFrame, contentFrame):
         contentFrame = cv2.resize(contentFrame, (int(screen.width * 0.1), screen.height))
         frame = cv2.vconcat(cameraFrame, contentFrame)
     print('concatenate done')
+    cv2.imshow('frame', frame)
     # return contentFrame
     # cv2.imshow('frame', frame)
     
@@ -122,7 +113,7 @@ def main():
     cv2.namedWindow('frame', cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty('frame', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     start = time.time()
-    # frame_thread = Thread(target=frameStream, args=(0, config, start))
+    frame_thread = Thread(target=frameStream, args=(0, config, start))
     # frame_thread.start()
     while(True):
         try: 
