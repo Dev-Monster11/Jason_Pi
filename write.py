@@ -79,14 +79,15 @@ def main():
     for content in config['contents']:
         temp = temp + content['AdDuration']
         seconds.append(temp)
-    print(seconds)
-    exit(0)
+    # print(seconds)
+    # exit(0)
     start = time.time()
     tempStart = start    
     while(True):
         now = time.time()
         
-        delta = (now - tempStart) % seconds[len(seconds) - 1]
+        delta = (int(now - tempStart / 1000)) % seconds[len(seconds) - 1]
+
         index = 0
         contentFrame = np.zeros((width, height, 3), dtype = "uint8")
         for x in seconds:
