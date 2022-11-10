@@ -162,13 +162,14 @@ def main():
                         source = frame[0:height, 0:int(width/2)]
                         contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
                         if (animationFlag == 1 and ceil(a) == 0):
+                            tempStart = time.time()
                             b = 1
                             animationFlag = 0
                         elif (animationFlag == -1 and ceil(b) == 0):
                             a = 1
                             animationFlag = 0
                             index = -1
-                        tempStart = time.time()
+                        
 
 
                     frame[0:height, 0:int(width/2)] = contentFrame
