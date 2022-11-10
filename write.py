@@ -79,7 +79,8 @@ def main():
     for content in config['contents']:
         temp = temp + content['AdDuration']
         seconds.append(temp)
-
+    print(seconds)
+    exit(0)
     start = time.time()
     tempStart = start    
     while(True):
