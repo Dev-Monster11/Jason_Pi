@@ -11,7 +11,8 @@ import random
 screen = get_monitors()[0]
 width = screen.width
 height = screen.height
-
+width = 640
+height = 480
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('output.avi', fourcc, 25.0, (width, height))
