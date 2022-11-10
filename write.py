@@ -131,13 +131,13 @@ def main():
                 url_response = urllib.request.urlopen(data['AdPath'])
                 contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
                 contentFrame = cv2.resize(contentFrame, adSize)
-                if (data['layout'] == 'left_50'):
+                if (config['layout'] == 'left_50'):
                     frame[0:height, 0:int(width/2)] = contentFrame
-                elif (data['layout'] == 'right_50'):
+                elif (config['layout'] == 'right_50'):
                     frame[0:height, int(width/2):width] = contentFrame
-                elif (data['layout'] == 'top_10'):
+                elif (config['layout'] == 'top_10'):
                     frame[0:int(height/10), 0:width] = contentFrame
-                elif (data['layout'] == 'bottom_10'):
+                elif (config['layout'] == 'bottom_10'):
                     frame[int(height/10):height, 0:width] = contentFrame
             cv2.imshow('frame', frame)
         try:
