@@ -101,10 +101,10 @@ def main():
     while(True):
 
         now = time.time()
-        print(now - start)
+        # print(now - start)
         d = int(now - start) 
         if d != 0 and d % config['period'] == 0:
-            tempStart = time.time()
+            
             contentShow = True
             animationFlag = 1
             index = random.randint(0, len(config['contents']) - 1)
@@ -135,11 +135,11 @@ def main():
             # if index == -1:
             #     index = random.randint(0, len(config['contents']) - 1)
             #     tempStart = time.time()
-            print("New Ads")
+            # print("New Ads")
             data = config['contents'][index]
             if (animationFlag == 0):
                 adDuration = time.time() - tempStart
-                print("Ad Duration", adDuration)
+                # print("Ad Duration", adDuration)
                 if (adDuration > data['AdDuration']):
                 # contentShow = False
                     animationFlag = -1
@@ -173,7 +173,7 @@ def main():
                             print("Fade Out")
                             a = 1
                             animationFlag = 0
-
+                        tempStart = time.time()
 
 
                     frame[0:height, 0:int(width/2)] = contentFrame
