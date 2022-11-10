@@ -158,6 +158,9 @@ def main():
             # camera_thread.kill()
             # content_thread.kill()
             break
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
