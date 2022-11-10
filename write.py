@@ -95,11 +95,9 @@ def main():
     while(True):
 
         now = time.time()
-        
+        print(now - start)        
         d = int((now - start) / 1000) 
         # print(int((now - start) / 1000))
-        if d != 0:
-            print('asdf')
         if d != 0 and d % config['period'] == 0:
             tempStart = now
             contentShow = True
