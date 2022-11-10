@@ -173,6 +173,7 @@ def main():
                             # print("Fade Out")
                             a = 1
                             animationFlag = 0
+                            index = -1
                         tempStart = time.time()
 
 
