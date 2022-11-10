@@ -88,9 +88,9 @@ def main():
     cap = cv2.VideoCapture(0)
     adSize = (0, 0)
     if (config['layout'] == 'left_50' or config['layout'] == 'right_50'):
-        adSize = (int(width * 0.5), height)
+        adSize = (int(width/2), height)
     else:
-        adSize = (width, int(height * 0.1))
+        adSize = (width, int(height/10))
     contentShow = False
     while(True):
 
@@ -121,6 +121,7 @@ def main():
         # buildFrame(config['layout'], camera.frame, contentFrame)
 
         _, frame = cap.read()
+        frame = cv2.resize(frame, (width, height))
         if contentShow:
             index = random.randint(0, len(config['contents']) - 1)
             data = config['contents'][index]
