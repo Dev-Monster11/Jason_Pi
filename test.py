@@ -7,15 +7,19 @@ import numpy as np
 from screeninfo import get_monitors
 import urllib.request
 
-screen = get_monitors()[0]
-cameraFrame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
-contentFrame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
+# screen = get_monitors()[0]
+# width = screen.width
+# height = screen.height
+width = 1024
+height = 768
+cameraFrame = np.zeros((width, height, 3), dtype = "uint8")
+contentFrame = np.zeros((width, height, 3), dtype = "uint8")
 
 class MyThread(Thread):
     def __init__(self, url):
         Thread.__init__(self)
         self.url = url
-        self.frame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
+        self.frame = np.zeros((width, height, 3), dtype = "uint8")
         self.cap = cv2.VideoCapture(self.url)
         if not self.cap.isOpened():
             print("Camera is not opened")
@@ -47,7 +51,7 @@ def frameStream(cap, config, start):
         
         delta = (now - tempStart) % seconds[len(seconds) - 1]
         index = 0
-        contentFrame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
+        contentFrame = np.zeros((width, height, 3), dtype = "uint8")
         for x in seconds:
             if (delta < x):
                 break
@@ -62,7 +66,7 @@ def frameStream(cap, config, start):
             url_response = urllib.request.urlopen(data['AdPath'])
             contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
         elif (data['AdType'] == 'SCROLL'):
-            cv2.putText(contentFrame, data['AdPath'], (screen.width / 2, screen.height / 2), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255))
+            cv2.putText(contentFrame, data['AdPath'], (width / 2, height / 2), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255))
         try:
             print("all is ready")
             buildFrame(config['layout'], camera.frame, contentFrame)
@@ -72,10 +76,10 @@ def frameStream(cap, config, start):
             print('Keyboard Interrupt')
 
 def buildFrame(val, cameraFrame, contentFrame):
-    frame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
+    frame = np.zeros((width, height, 3), dtype = "uint8")
     if val == 'left_50':
-        contentFrame = cv2.resize(contentFrame, (int(screen.width * 0.5), screen.height))
-        cameraFrame = cv2.resize(cameraFrame, (int(screen.width * 0.5), screen.height))
+        contentFrame = cv2.resize(contentFrame, (int(width * 0.5), height))
+        cameraFrame = cv2.resize(cameraFrame, (int(width * 0.5), height))
         cv2.imwrite("content.jpg", contentFrame)
         cv2.imwrite("camera.jpg", cameraFrame)
         frame = cv2.hconcat([cameraFrame, contentFrame])
@@ -84,16 +88,16 @@ def buildFrame(val, cameraFrame, contentFrame):
         # # b = cv2.vconcat(cameraFrame, contentFrame)
         # # cv2.imwrite("3.jpg", b)
     elif val == 'right_50':
-        cameraFrame = cv2.resize(cameraFrame, (int(screen.width * 0.5), screen.height))
-        contentFrame = cv2.resize(contentFrame, (int(screen.width * 0.5), screen.height))
+        cameraFrame = cv2.resize(cameraFrame, (int(width * 0.5), height))
+        contentFrame = cv2.resize(contentFrame, (int(width * 0.5), height))
         frame = cv2.hconcat(contentFrame, cameraFrame)
     elif val == 'top_10':
-        cameraFrame = cv2.resize(cameraFrame, (int(screen.width * 0.9), screen.height))
-        contentFrame = cv2.resize(contentFrame, (int(screen.width * 0.1), screen.height))
+        cameraFrame = cv2.resize(cameraFrame, (int(width * 0.9), height))
+        contentFrame = cv2.resize(contentFrame, (int(width * 0.1), height))
         frame = cv2.vconcat(contentFrame, cameraFrame)
     elif val == 'bottom_10':
-        camera = cv2.resize(cameraFrame, (int(screen.width * 0.9), screen.height))
-        contentFrame = cv2.resize(contentFrame, (int(screen.width * 0.1), screen.height))
+        camera = cv2.resize(cameraFrame, (int(width * 0.9), height))
+        contentFrame = cv2.resize(contentFrame, (int(width * 0.1), height))
         frame = cv2.vconcat(cameraFrame, contentFrame)
     print('concatenate done')
     cv2.imshow('frame', frame)
@@ -110,8 +114,9 @@ def loadConfig():
 
 def main():
     config = loadConfig()
-    cv2.namedWindow('frame', cv2.WND_PROP_FULLSCREEN)
-    cv2.setWindowProperty('frame', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+    # cv2.namedWindow('frame', cv2.WND_PROP_FULLSCREEN)
+    # cv2.setWindowProperty('frame', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
     start = time.time()
     frame_thread = Thread(target=frameStream, args=(0, config, start))
     frame_thread.start()
