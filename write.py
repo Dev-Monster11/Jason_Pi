@@ -30,7 +30,7 @@ class MyThread(Thread):
         if not self.cap.isOpened():
             print("Camera is not opened")
             exit(0)
-    def startThread()
+    def startThread():
     	self.flag = True
     def killThread()
     	self.flag = False
