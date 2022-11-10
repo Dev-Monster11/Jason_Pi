@@ -74,7 +74,7 @@ def main():
 
     start = time.time()
     # camera = MyThread(0)
-    camera.startThread()
+    # camera.startThread()
     
     # seconds = [0]
     # temp = 0
