@@ -22,15 +22,15 @@ class MyThread(Thread):
             exit(0)
     def run(self):
         while(True):
-            ret, self.frame = cap.read()
+            ret, self.frame = self.cap.read()
             if not ret:
                 print("frame error")
-                cap.release()
+                self.cap.release()
                 break
             time.sleep(0.04)
     def kill(self):
-        if cap.isOpened():
-            cap.release()
+        if self.cap.isOpened():
+            self.cap.release()
         self.join()
 
 def frameStream(cap, config, start):
