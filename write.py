@@ -142,7 +142,7 @@ def main():
                     frame[0:int(height/10), 0:width] = contentFrame
                 elif (config['layout'] == 'bottom_10'):
                     frame[int(height/10):height, 0:width] = contentFrame
-            cv2.imshow('frame', frame)
+        cv2.imshow('frame', frame)
         try:
             if cv2.waitKey(1) == ord('q'):
                 break
