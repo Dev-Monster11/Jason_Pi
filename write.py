@@ -1,6 +1,7 @@
 
 import cv2
 import json
+from math import ceil
 import time
 from threading import Thread
 import numpy as np
