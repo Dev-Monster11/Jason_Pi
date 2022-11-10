@@ -96,8 +96,8 @@ def main():
 
         now = time.time()
         
-
-        if (now - start) % config['period'] == 0:
+        print(int((now - start) / 1000))
+        if int((now - start) / 1000) % config['period'] == 0:
             tempStart = now
             contentShow = True
         # index = 0
