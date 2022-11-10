@@ -15,7 +15,7 @@ width = 640
 height = 480
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output.avi', fourcc, 25.0, (width, height))
+out = cv2.VideoWriter('output.mp4', fourcc, 25.0, (width, height))
 def loadConfig():
     with open('config.json', 'r') as config_file:
         configData = json.load(config_file)
@@ -144,14 +144,17 @@ def main():
                     frame[0:int(height/10), 0:width] = contentFrame
                 elif (config['layout'] == 'bottom_10'):
                     frame[int(height/10):height, 0:width] = contentFrame
+        out.write(frame)
         cv2.imshow('frame', frame)
         try:
             if cv2.waitKey(1) == ord('q'):
                 break
         except KeyboardInterrupt:
             print('Keyboard Interrupt')
-            camera.kill()
+            # camera.kill()
+            cap.release()
             out.release()
+            print('Released')
             # camera_thread.kill()
             # content_thread.kill()
             break
