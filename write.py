@@ -24,12 +24,20 @@ class MyThread(Thread):
         Thread.__init__(self)
         self.url = url
         self.frame = np.zeros((width, height, 3), dtype = "uint8")
+        self.flag = False
         self.cap = cv2.VideoCapture(self.url)
         if not self.cap.isOpened():
             print("Camera is not opened")
             exit(0)
+    def startThread()
+    	self.flag = True
+    def killThread()
+    	self.flag = False
+        if self.cap.isOpened():
+            self.cap.release()
+        self.join()
     def run(self):
-        while(True):
+        while(self.flag):
             ret, self.frame = self.cap.read()
             if not ret:
                 print("frame error")
@@ -37,8 +45,7 @@ class MyThread(Thread):
                 break
             time.sleep(0.04)
     def kill(self):
-        if self.cap.isOpened():
-            self.cap.release()
+
         self.join()
 def buildFrame(val, cameraFrame, contentFrame):
     frame = np.zeros((width, height, 3), dtype = "uint8")
@@ -64,7 +71,6 @@ def buildFrame(val, cameraFrame, contentFrame):
         camera = cv2.resize(cameraFrame, (int(width * 0.9), height))
         contentFrame = cv2.resize(contentFrame, (int(width * 0.1), height))
         frame = cv2.vconcat(cameraFrame, contentFrame)
-    print('concatenate done')
     cv2.imshow('frame', frame)
     out.write(frame)
 def main():
@@ -72,7 +78,7 @@ def main():
 
     start = time.time()
     camera = MyThread(0)
-    camera.start()
+    camera.startThread()
     
     seconds = [0]
     temp = 0

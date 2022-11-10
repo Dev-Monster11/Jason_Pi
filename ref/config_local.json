@@ -1,0 +1,45 @@
+{
+	"name": "test",
+	"password": "test",
+	"location": "13th Street New York, US",
+	"location_type": "Restaurant",
+	"orientation": "horizontal",
+	"layout": "left_50",
+	"contents": [
+		{
+			"AdName": "Case1",
+			"AdType": "IMAGE",
+			"AdPath": "1.png",
+			"AdDuration": 1,
+			"AdQRPath": "https://test3.com"
+		},
+		{
+			"AdName": "Case2",
+			"AdType": "IMAGE",
+			"AdPath": "2.png",
+			"AdDuration": 1,
+			"AdQRPath": "https://test3.com"
+		},
+		{
+			"AdName": "Case3",
+			"AdType": "IMAGE",
+			"AdPath": "3.png",
+			"AdDuration": 1,
+			"AdQRPath": "https://test3.com"
+		},
+		{
+			"AdName": "Case4",
+			"AdType": "IMAGE",
+			"AdPath": "4.png",
+			"AdDuration": 1,
+			"AdQRPath": "https://test3.com"
+		},
+		{
+			"AdName": "Case5",
+			"AdType": "IMAGE",
+			"AdPath": "1.png",
+			"AdDuration": 1,
+			"AdQRPath": "https://test.com"
+		}
+	]
+}
