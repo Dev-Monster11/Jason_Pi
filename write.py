@@ -150,21 +150,25 @@ def main():
                 contentFrame = cv2.resize(contentFrame, adSize)
 
                 if (config['layout'] == 'left_50'):
-                    source = frame[0:height, 0:int(width/2)]
-                    contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
-                    if (animationFlag == 1 and ceil(a) == 0):
-                        b = 1
-                        animationFlag = 0
-                    elif (animationFlag == -1 and ceil(b) == 0):
-                        a = 1
-                        animationFlag = 0
+                    if (animationFlag != 0):
+                        source = frame[0:height, 0:int(width/2)]
+                        contentFrame = cv2.addWeighted(source, a, contentFrame, b, 0)
+                        if (animationFlag == 1 and ceil(a) == 0):
+                            b = 1
+                            animationFlag = 0
 
-                    if animationFlag == 1:
-                        a -= 0.01
-                        b += 0.01
-                    elif animationFlag == -1:
-                        a += 0.01
-                        b -= 0.01
+
+                        elif (animationFlag == -1 and ceil(b) == 0):
+                            a = 1
+                            animationFlag = 0
+
+                        if animationFlag == 1:
+                            a -= 0.1
+                            b += 0.1
+                        elif animationFlag == -1:
+                            a += 0.1
+                            b -= 0.1
+                    
                     frame[0:height, 0:int(width/2)] = contentFrame
 
                 elif (config['layout'] == 'right_50'):
