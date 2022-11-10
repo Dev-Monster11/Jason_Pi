@@ -79,7 +79,7 @@ def buildFrame(val, cameraFrame, contentFrame):
         cv2.imwrite("content.jpg", contentFrame)
         cv2.imwrite("camera.jpg", cameraFrame)
         frame = cv2.hconcat([cameraFrame, contentFrame])
-        
+        cv2.imwrite("total.jpg", frame)
         # cv2.imwrite("2.jpg", frame)
         # # b = cv2.vconcat(cameraFrame, contentFrame)
         # # cv2.imwrite("3.jpg", b)
