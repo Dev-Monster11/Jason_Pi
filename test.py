@@ -17,7 +17,7 @@ class MyThread(Thread):
         self.url = url
         self.frame = np.zeros((screen.width, screen.height, 3), dtype = "uint8")
         self.cap = cv2.VideoCapture(self.url)
-        if not cap.isOpened():
+        if not self.cap.isOpened():
             print("Camera is not opened")
             exit(0)
     def run(self):
