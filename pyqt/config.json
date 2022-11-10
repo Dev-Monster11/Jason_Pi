@@ -4,7 +4,7 @@
 	"location": "13th Street New York, US",
 	"location_type": "Restaurant",
 	"orientation": "horizontal",
-	"layout": "top_10",
+	"layout": "left_50",
 	"period": 5,
 	"contents": [
 		{

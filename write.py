@@ -6,6 +6,7 @@ from threading import Thread
 import numpy as np
 from screeninfo import get_monitors
 import urllib.request
+import random
 
 screen = get_monitors()[0]
 width = screen.width
@@ -52,13 +53,8 @@ def buildFrame(val, cameraFrame, contentFrame):
     if val == 'left_50':
         contentFrame = cv2.resize(contentFrame, (int(width * 0.5), height))
         cameraFrame = cv2.resize(cameraFrame, (int(width * 0.5), height))
-        cv2.imwrite("content.jpg", contentFrame)
-        cv2.imwrite("camera.jpg", cameraFrame)
         frame = cv2.hconcat([cameraFrame, contentFrame])
-        cv2.imwrite("total.jpg", frame)
-        # cv2.imwrite("2.jpg", frame)
-        # # b = cv2.vconcat(cameraFrame, contentFrame)
-        # # cv2.imwrite("3.jpg", b)
+
     elif val == 'right_50':
         cameraFrame = cv2.resize(cameraFrame, (int(width * 0.5), height))
         contentFrame = cv2.resize(contentFrame, (int(width * 0.5), height))
@@ -72,7 +68,7 @@ def buildFrame(val, cameraFrame, contentFrame):
         contentFrame = cv2.resize(contentFrame, (int(width * 0.1), height))
         frame = cv2.vconcat(cameraFrame, contentFrame)
     cv2.imshow('frame', frame)
-    out.write(frame)
+    # out.write(frame)
 def main():
     config = loadConfig()
 

@@ -8,8 +8,8 @@ import urllib.request
 import numpy as np
 import random
 
-from PyQt5.QtCore import QTimer, QThread, Qt
-from PyQt5.QtWidgets import QLabel, QApplication, QDialog
+from PyQt5.QtCore import QTimer, QThread, QPropertyAnimation, QEasingCurve
+from PyQt5.QtWidgets import QLabel, QApplication, QDialog, QGraphicsOpacityEffect
 from PyQt5.QtGui import QImage, QPixmap, QPainter
 from camera import CameraBackend
 
@@ -44,6 +44,7 @@ class MainDlg(QDialog):
         # self.startFlag = False
 
         self.content = QLabel(self)
+        # self.content.setGeometry(0, 0, 0, 0)
         self.content.setStyleSheet('background-color: transparent')
         if (self.config['layout'] == 'left_50'):
             self.content.setGeometry(0, 0, int(width * 0.5), height)
@@ -53,11 +54,21 @@ class MainDlg(QDialog):
             self.content.setGeometry(0, 0, width, int(height * 0.1))
         elif (self.config['layout'] == 'bottom_10'):
             self.content.setGeometry(0, int(height * 0.9), width, height)
-        self.content.hide()
+        self.content.show()
+        fade_effect = QGraphicsOpacityEffect(self);
+        self.content.setGraphicsEffect(fade_effect);
+        self.animation = QPropertyAnimation(fade_effect, b"opacity");
 
     def hideContent(self):
         # self.showContent = False
         print('hide')
+        
+        self.animation.setEasingCurve(QEasingCurve.InOutQuad);
+        self.animation.setDuration(1500);
+        self.animation.setStartValue(1);
+        self.animation.setEndValue(0.01);
+        self.animation.start()
+        # self.animation.start(QPropertyAnimation.DeleteWhenStopped);
         self.content.hide()
     def showContent(self):
         
@@ -78,9 +89,15 @@ class MainDlg(QDialog):
             h, w, _ = frame.shape
             bg = QImage(frame.data, w, h, w * 3 ,QImage.Format_RGB888)
             self.content.setPixmap(QPixmap.fromImage(bg))
-            # self.contentShow = True
-            self.content.show()
-            self.hideTimer.start(data['AdDuration'] * 1000)
+
+            self.animation.setEasingCurve(QEasingCurve.InOutQuad);
+            self.animation.setDuration(1500);
+            self.animation.setStartValue(0.01);
+            self.animation.setEndValue(1);
+            self.animation.start()
+            # self.animation.start(QPropertyAnimation.DeleteWhenStopped);
+
+            self.hideTimer.start(data['AdDuration'] * 1000 + 1500 * 2)
         # self.content = contentFrame
         # self.contentExist = True
         # self.contentIndex = self.contentIndex + 1
@@ -133,6 +150,7 @@ class MainDlg(QDialog):
         self.camera.release()
         exit(0)
     def keyPressEvent(self, event):
+        print(event.key())
         if event.key() == 'q':
             self.releaseAll()       
 
