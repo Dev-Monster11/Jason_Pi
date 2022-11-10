@@ -120,7 +120,7 @@ def main():
 
         # buildFrame(config['layout'], camera.frame, contentFrame)
 
-        _, frame = cv2.read()
+        _, frame = cap.read()
         if contentShow:
             index = random.randint(0, len(config['contents']) - 1)
             data = config['contents'][index]
