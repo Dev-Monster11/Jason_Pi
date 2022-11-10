@@ -130,6 +130,8 @@ def main():
             adDuration = time.time() - tempStart
             if (adDuration > data['AdDuration']):
                 contentShow = False
+                start = time.time()
+                tempStart = start
             if (data['AdType'] == 'IMAGE'):
                 url_response = urllib.request.urlopen(data['AdPath'])
                 contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
