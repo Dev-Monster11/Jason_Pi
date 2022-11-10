@@ -98,6 +98,7 @@ def main():
         
 
         if (now - start) % config['period'] == 0:
+            tempStart = now
             contentShow = True
         # index = 0
         # contentFrame = np.zeros((width, height, 3), dtype = "uint8")
@@ -123,7 +124,9 @@ def main():
         if contentShow:
             index = random.randint(0, len(config['contents']) - 1)
             data = config['contents'][index]
-
+            adDuration = time.time() - tempStart
+            if (adDuration > data['AdDuration']):
+                contentShow = False
             if (data['AdType'] == 'IMAGE'):
                 url_response = urllib.request.urlopen(data['AdPath'])
                 contentFrame = cv2.imdecode(np.array(bytearray(url_response.read()), dtype=np.uint8), -1)
