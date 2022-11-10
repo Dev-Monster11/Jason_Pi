@@ -110,7 +110,8 @@ def main():
                 break
         except KeyboardInterrupt:
             print('Keyboard Interrupt')
-            frame_thread.join()
+            camera.kill()
+            out.release()
             # camera_thread.kill()
             # content_thread.kill()
             break
