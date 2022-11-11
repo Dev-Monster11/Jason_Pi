@@ -12,8 +12,8 @@ from time import perf_counter
 screen = get_monitors()[0]
 width = screen.width
 height = screen.height
-width = 640
-height = 480
+# width = 640
+# height = 480
 
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('output.avi', fourcc, 20.0, (width, height))
