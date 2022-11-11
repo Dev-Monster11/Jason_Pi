@@ -102,7 +102,7 @@ def main():
 
     writeIndex = 0
     while(True):
-
+        _, frame = cap.read()
         now = time.time()
         # print(now - start)
         d = int(now - start) 
@@ -132,7 +132,7 @@ def main():
 
         # buildFrame(config['layout'], camera.frame, contentFrame)
 
-        _, frame = cap.read()
+        
         frame = cv2.resize(frame, (width, height))
         if index != -1:
             # if index == -1:
