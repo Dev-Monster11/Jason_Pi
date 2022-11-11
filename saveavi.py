@@ -6,7 +6,10 @@ def main():
 	index = 0
 	while True:
 		img = cv2.imread("{0}.jpg".format(index))
-		out.write(img)
+		if img is not None:
+			out.write(img)
+		else:
+			break;
 		cv.waitKey(1)
 		if (index % 100 == 0):
 			print(index / 100)
