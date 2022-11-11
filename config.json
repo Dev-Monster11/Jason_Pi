@@ -5,7 +5,7 @@
 	"location_type": "Restaurant",
 	"orientation": "horizontal",
 	"layout": "left_50",
-	"period": 10,
+	"period": 5,
 	"contents": [
 		{
 			"AdName": "Case1",
