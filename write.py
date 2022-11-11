@@ -184,7 +184,7 @@ def main():
                     frame[0:int(height/10), 0:width] = contentFrame
                 elif (config['layout'] == 'bottom_10'):
                     frame[int(height/10):height, 0:width] = contentFrame
-        cv2.imwrite("{0}.jpg".format(writeIndex), image)
+        cv2.imwrite("{0}.jpg".format(writeIndex), frame)
         writeIndex = writeIndex + 1
         if writeIndex > 15000:
             cap.release()
