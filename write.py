@@ -15,8 +15,8 @@ height = screen.height
 # width = 640
 # height = 480
 
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output.avi', fourcc, 20.0, (width, height))
+# fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# out = cv2.VideoWriter('output.avi', fourcc, 20.0, (width, height))
 def loadConfig():
     with open('config.json', 'r') as config_file:
         configData = json.load(config_file)
@@ -69,7 +69,8 @@ def buildFrame(val, cameraFrame, contentFrame):
         camera = cv2.resize(cameraFrame, (int(width * 0.9), height))
         contentFrame = cv2.resize(contentFrame, (int(width * 0.1), height))
         frame = cv2.vconcat(cameraFrame, contentFrame)
-    cv2.imshow('frame', frame)
+
+    # cv2.imshow('frame', frame)
     # out.write(frame)
 def main():
     config = loadConfig()
@@ -98,6 +99,8 @@ def main():
     a = 1.0
     b = 0.0
     animationFlag = 0
+
+    writeIndex = 0
     while(True):
 
         now = time.time()
@@ -181,8 +184,15 @@ def main():
                     frame[0:int(height/10), 0:width] = contentFrame
                 elif (config['layout'] == 'bottom_10'):
                     frame[int(height/10):height, 0:width] = contentFrame
-        out.write(frame)
-        cv2.imshow('frame', frame)
+        cv2.imwrite("{0}.jpg".format(writeIndex), image)
+        writeIndex = writeIndex + 1
+        if writeIndex > 15000:
+            cap.release()
+            cv2.destroyAllWindows()
+            exit(0)
+
+        # out.write(frame)
+        # cv2.imshow('frame', frame)
         try:
             if cv2.waitKey(1) == ord('q'):
                 break

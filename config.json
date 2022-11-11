@@ -5,41 +5,41 @@
 	"location_type": "Restaurant",
 	"orientation": "horizontal",
 	"layout": "left_50",
-	"period": 5,
+	"period": 120,
 	"contents": [
 		{
 			"AdName": "Case1",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/miss-piggy-large.jpg",
-			"AdDuration": 1,
+			"AdDuration": 10,
 			"AdQRPath": "https://test3.com"
 		},
 		{
 			"AdName": "Case2",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/winnie-the-pooh-large.jpg",
-			"AdDuration": 2,
+			"AdDuration": 15,
 			"AdQRPath": "https://test3.com"
 		},
 		{
 			"AdName": "Case3",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/charlie-brown-large.jpg",
-			"AdDuration": 3,
+			"AdDuration": 20,
 			"AdQRPath": "https://test3.com"
 		},
 		{
 			"AdName": "Case4",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/pink-ranger-large.jpg",
-			"AdDuration": 2,
+			"AdDuration": 25,
 			"AdQRPath": "https://test3.com"
 		},
 		{
 			"AdName": "Case5",
 			"AdType": "IMAGE",
 			"AdPath": "https://s3.amazonaws.com/technical-challenge/v3/images/elmer-fudd-large.jpg",
-			"AdDuration": 1,
+			"AdDuration": 30,
 			"AdQRPath": "https://test3.com"
 		}
 
